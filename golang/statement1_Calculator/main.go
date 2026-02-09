@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 //Calculator function :
@@ -33,6 +34,7 @@ func main() {
 	var use string
 	fmt.Println("Would you like to use the calculator? (y/n)")
 	fmt.Scan(&use)
+	strings.ToLower(use)
 	for use == "y" {
 		fmt.Println("Enter the first operand : ")
 		_, err1 := fmt.Scan(&op1)
@@ -56,6 +58,7 @@ func main() {
 		fmt.Printf("%g %s %g = %g\n", op1, op, op2, result)
 		fmt.Println("Would you like to continue using the calculator? (y/n)")
 		fmt.Scan(&use)
+		strings.ToLower(use)
 		if use != "y" && use != "n" {
 			break
 		}
