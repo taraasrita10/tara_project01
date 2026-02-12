@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"testing"
 )
 
@@ -18,7 +19,7 @@ func TestCheck(t *testing.T) {
 
 	for _, tt := range testsCheck {
 		t.Run(tt.name, func(t *testing.T) {
-			got := check(tt.word, &tt.slice)
+			got := check(tt.word, tt.slice)
 			if got != tt.want {
 				t.Errorf("%s, got : %v, want : %v", tt.name, got, tt.want)
 			}
@@ -39,9 +40,8 @@ func TestAdd(t *testing.T) {
 
 	for _, tt := range testsAdd {
 		t.Run(tt.name, func(t *testing.T) {
-			add(tt.word, &tt.slice)
-			got := tt.slice
-			for i, _ := range got {
+			got := add(tt.word, tt.slice)
+			for i := range got {
 				if got[i] != tt.wantslice[i] {
 					t.Errorf("%s, got : %v, want : %v", tt.name, got, tt.wantslice)
 				}
@@ -64,12 +64,33 @@ func TestRemove(t *testing.T) {
 
 	for _, tt := range testsRemove {
 		t.Run(tt.name, func(t *testing.T) {
-			remove(tt.word, &tt.slice)
-			got := tt.slice
-			for i, _ := range got {
+			got := remove(tt.word, tt.slice)
+			for i := range got {
 				if got[i] != tt.want[i] {
 					t.Errorf("%s, got : %v, want : %v", tt.name, got, tt.want)
 				}
+			}
+		})
+	}
+}
+
+func TestList(t *testing.T) {
+	testsList := []struct {
+		name string
+		list []string
+		want string
+	}{
+		{"List", []string{"first", "second", "third"}, "first\nsecond\nthird\n"},
+		{"EmptyList", []string{}, "The list is empty!\n"},
+	}
+
+	for _, tt := range testsList {
+		var buf bytes.Buffer
+		t.Run(tt.name, func(t *testing.T) {
+			list(tt.list, &buf)
+			got := buf.String()
+			if got != tt.want {
+				t.Errorf("%s, got : \n%v, want : \n%v", tt.name, got, tt.want)
 			}
 		})
 	}
