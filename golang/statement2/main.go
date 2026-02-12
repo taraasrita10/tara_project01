@@ -80,6 +80,7 @@ func main() {
 	for quit != true {
 		fmt.Println("Commands : Add / List / Check / Remove / Quit")
 		command, err := getInput(reader, "Enter the command : ")
+		command = strings.ToLower(command)
 		if err != nil && err != io.EOF {
 			fmt.Println("Error reading input!")
 			break
