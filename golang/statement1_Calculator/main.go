@@ -10,21 +10,21 @@ import (
 // a mathematical function and provides the output.
 // Involves addition, subtraction, multiplication and division of float64 numbers.
 
-func calculator(op1, op2 float64, op string) float64 {
+func calculator(op1, op2 float64, op string) (float64, error) {
 	switch op {
 	case "+":
-		return op1 + op2
+		return op1 + op2, nil
 	case "-":
-		return op1 - op2
+		return op1 - op2, nil
 	case "*":
-		return op1 * op2
+		return op1 * op2, nil
 	case "/":
 		if op2 == 0 {
-			return 0
+			return 0, fmt.Errorf("Division by 0 is Invalid.")
 		}
-		return op1 / op2
+		return op1 / op2, nil
 	default:
-		return 0
+		return 0, fmt.Errorf("Invalid Operator : %s", op)
 	}
 }
 
@@ -54,7 +54,11 @@ func main() {
 			fmt.Println("Division by 0 is not possible")
 			continue
 		}
-		result := calculator(op1, op2, op)
+		result, err := calculator(op1, op2, op)
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			continue
+		}
 		fmt.Printf("%g %s %g = %g\n", op1, op, op2, result)
 		fmt.Println("Would you like to continue using the calculator? (y/n)")
 		fmt.Scan(&use)
