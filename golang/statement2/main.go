@@ -14,10 +14,16 @@ import (
 func getInput(reader *bufio.Reader, prompt string) (string, error) {
 	fmt.Print(prompt)
 	input, err := reader.ReadString('\n')
-	if err != nil {
-		return strings.TrimSpace(input), nil
+	if input == "" {
+		return "", fmt.Errorf("Empty spaces are not valid input!")
 	}
-	return strings.TrimSpace(input), nil
+	if err != nil {
+		if err != io.EOF {
+			fmt.Println("Error reading input:", err)
+		}
+		return strings.TrimSpace(input), err
+	}
+	return "", nil
 }
 
 // Checks for the existance of a string in the list
@@ -80,26 +86,27 @@ func main() {
 	for quit != true {
 		fmt.Println("Commands : Add / List / Check / Remove / Quit")
 		command, err := getInput(reader, "Enter the command : ")
-		command = strings.ToLower(command)
-		if err != nil && err != io.EOF {
-			fmt.Println("Error reading input!")
+		if err != nil {
 			break
 		}
+		command = strings.ToLower(command)
 		switch command {
 		case "add":
 			word, err := getInput(reader, "Enter the word : ")
-			if err != nil && err != io.EOF {
-				fmt.Println("Error reading input!")
+			if err != nil {
 				break
 			}
-			arr = add(word, arr)
+			if word == "" {
+				fmt.Println("Empty spaces are not valid input!")
+			} else {
+				arr = add(word, arr)
+			}
 		case "list":
 			list(arr, os.Stdout)
 		case "check":
 			var word string
 			word, err := getInput(reader, "Enter the word : ")
-			if err != nil && err != io.EOF {
-				fmt.Println("Error reading input!")
+			if err != nil {
 				break
 			}
 			if word == "" {
@@ -113,11 +120,14 @@ func main() {
 			}
 		case "remove":
 			word, err := getInput(reader, "Enter the word : ")
-			if err != nil && err != io.EOF {
-				fmt.Println("Error reading input!")
+			if err != nil {
 				break
 			}
-			arr = remove(word, arr)
+			if word == "" {
+				fmt.Println("Empty spaces are not valid input!")
+			} else {
+				arr = remove(word, arr)
+			}
 		case "quit":
 			quit = true
 		default:
