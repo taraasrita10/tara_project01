@@ -1,13 +1,13 @@
 syntax = "proto3";
  
-option go_package = "./proto";
+option go_package = "statement6/proto";
 
 package trie;
 
 service TrieService {
     rpc Add(WordRequest) returns (StatusResponse);
-    rpc Remove(WordRequest) returns (CheckResponse);
-    rpc Check(WordRequest) returns (StatusResponse);
+    rpc Remove(WordRequest) returns (StatusResponse);
+    rpc Check(WordRequest) returns (CheckResponse);
     rpc List(Empty) returns (ListResponse);
 }
 
@@ -24,7 +24,7 @@ message CheckResponse {
 }
 
 message ListResponse {
-  repeated string words = 1; // 'repeated' becomes a slice []string in Go
+  repeated string words = 1; 
 }
 
 message Empty {}

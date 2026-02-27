@@ -30,8 +30,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TrieServiceClient interface {
 	Add(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*StatusResponse, error)
-	Remove(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*CheckResponse, error)
-	Check(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*StatusResponse, error)
+	Remove(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*StatusResponse, error)
+	Check(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*CheckResponse, error)
 	List(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ListResponse, error)
 }
 
@@ -53,9 +53,9 @@ func (c *trieServiceClient) Add(ctx context.Context, in *WordRequest, opts ...gr
 	return out, nil
 }
 
-func (c *trieServiceClient) Remove(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*CheckResponse, error) {
+func (c *trieServiceClient) Remove(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*StatusResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CheckResponse)
+	out := new(StatusResponse)
 	err := c.cc.Invoke(ctx, TrieService_Remove_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -63,9 +63,9 @@ func (c *trieServiceClient) Remove(ctx context.Context, in *WordRequest, opts ..
 	return out, nil
 }
 
-func (c *trieServiceClient) Check(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*StatusResponse, error) {
+func (c *trieServiceClient) Check(ctx context.Context, in *WordRequest, opts ...grpc.CallOption) (*CheckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(StatusResponse)
+	out := new(CheckResponse)
 	err := c.cc.Invoke(ctx, TrieService_Check_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -88,8 +88,8 @@ func (c *trieServiceClient) List(ctx context.Context, in *Empty, opts ...grpc.Ca
 // for forward compatibility.
 type TrieServiceServer interface {
 	Add(context.Context, *WordRequest) (*StatusResponse, error)
-	Remove(context.Context, *WordRequest) (*CheckResponse, error)
-	Check(context.Context, *WordRequest) (*StatusResponse, error)
+	Remove(context.Context, *WordRequest) (*StatusResponse, error)
+	Check(context.Context, *WordRequest) (*CheckResponse, error)
 	List(context.Context, *Empty) (*ListResponse, error)
 	mustEmbedUnimplementedTrieServiceServer()
 }
@@ -104,10 +104,10 @@ type UnimplementedTrieServiceServer struct{}
 func (UnimplementedTrieServiceServer) Add(context.Context, *WordRequest) (*StatusResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
 }
-func (UnimplementedTrieServiceServer) Remove(context.Context, *WordRequest) (*CheckResponse, error) {
+func (UnimplementedTrieServiceServer) Remove(context.Context, *WordRequest) (*StatusResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Remove not implemented")
 }
-func (UnimplementedTrieServiceServer) Check(context.Context, *WordRequest) (*StatusResponse, error) {
+func (UnimplementedTrieServiceServer) Check(context.Context, *WordRequest) (*CheckResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Check not implemented")
 }
 func (UnimplementedTrieServiceServer) List(context.Context, *Empty) (*ListResponse, error) {

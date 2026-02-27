@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trie-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trie-server
+  template:
+    metadata:
+      labels:
+        app: trie-server
+    spec:
+      containers:
+      - name: trie-server
+        image: trie-server:latest
+        imagePullPolicy: Never 
+        ports:
+        - containerPort: 50051
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trie-service
+spec:
+  selector:
+    app: trie-server
+  ports:
+    - protocol: TCP
+      port: 50051
+      targetPort: 50051

@@ -155,7 +155,7 @@ func (x *CheckResponse) GetExists() bool {
 
 type ListResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Words         []string               `protobuf:"bytes,1,rep,name=words,proto3" json:"words,omitempty"` // 'repeated' becomes a slice []string in Go
+	Words         []string               `protobuf:"bytes,1,rep,name=words,proto3" json:"words,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -249,10 +249,10 @@ const file_trie_proto_rawDesc = "" +
 	"\x05words\x18\x01 \x03(\tR\x05words\"\a\n" +
 	"\x05Empty2\xca\x01\n" +
 	"\vTrieService\x12.\n" +
-	"\x03Add\x12\x11.trie.WordRequest\x1a\x14.trie.StatusResponse\x120\n" +
-	"\x06Remove\x12\x11.trie.WordRequest\x1a\x13.trie.CheckResponse\x120\n" +
-	"\x05Check\x12\x11.trie.WordRequest\x1a\x14.trie.StatusResponse\x12'\n" +
-	"\x04List\x12\v.trie.Empty\x1a\x12.trie.ListResponseB\tZ\a./protob\x06proto3"
+	"\x03Add\x12\x11.trie.WordRequest\x1a\x14.trie.StatusResponse\x121\n" +
+	"\x06Remove\x12\x11.trie.WordRequest\x1a\x14.trie.StatusResponse\x12/\n" +
+	"\x05Check\x12\x11.trie.WordRequest\x1a\x13.trie.CheckResponse\x12'\n" +
+	"\x04List\x12\v.trie.Empty\x1a\x12.trie.ListResponseB\x12Z\x10statement6/protob\x06proto3"
 
 var (
 	file_trie_proto_rawDescOnce sync.Once
@@ -280,8 +280,8 @@ var file_trie_proto_depIdxs = []int32{
 	0, // 2: trie.TrieService.Check:input_type -> trie.WordRequest
 	4, // 3: trie.TrieService.List:input_type -> trie.Empty
 	1, // 4: trie.TrieService.Add:output_type -> trie.StatusResponse
-	2, // 5: trie.TrieService.Remove:output_type -> trie.CheckResponse
-	1, // 6: trie.TrieService.Check:output_type -> trie.StatusResponse
+	1, // 5: trie.TrieService.Remove:output_type -> trie.StatusResponse
+	2, // 6: trie.TrieService.Check:output_type -> trie.CheckResponse
 	3, // 7: trie.TrieService.List:output_type -> trie.ListResponse
 	4, // [4:8] is the sub-list for method output_type
 	0, // [0:4] is the sub-list for method input_type

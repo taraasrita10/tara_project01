@@ -36,7 +36,10 @@ func (s *server) Remove(ctx context.Context, req *pb.WordRequest) (*pb.StatusRes
 }
 
 func main() {
-	lis, _ := net.Listen("tcp", ":50051")
+	lis, err := net.Listen("tcp", ":50051")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
 	s := grpc.NewServer()
 	pb.RegisterTrieServiceServer(s, &server{myTrie: trie.NewTrie()})
 	log.Println("Server running on port 50051...")
