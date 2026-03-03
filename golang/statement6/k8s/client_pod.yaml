@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: trie-client
-    image: trie-client:latest
+    image: localhost/trie-client:latest
     imagePullPolicy: Never
     stdin: true  
     tty: true    

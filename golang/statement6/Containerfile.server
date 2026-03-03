@@ -11,8 +11,3 @@ WORKDIR /root/
 COPY --from=builder /server_bin ./server
 EXPOSE 50051
 CMD ["./server"]
-
-FROM alpine:latest AS client
-WORKDIR /root/
-COPY --from=builder /client_bin ./client
-CMD ["./client"]
