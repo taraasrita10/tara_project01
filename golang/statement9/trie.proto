@@ -1,0 +1,30 @@
+syntax = "proto3";
+ 
+option go_package = "statement6/proto";
+
+package trie;
+
+service TrieService {
+    rpc Add(WordRequest) returns (StatusResponse);
+    rpc Remove(WordRequest) returns (StatusResponse);
+    rpc Check(WordRequest) returns (CheckResponse);
+    rpc List(Empty) returns (ListResponse);
+}
+
+message WordRequest {
+  string word = 1;
+}
+
+message StatusResponse {
+  bool success = 1;
+}
+
+message CheckResponse {
+  bool exists = 1;
+}
+
+message ListResponse {
+  repeated string words = 1; 
+}
+
+message Empty {}
