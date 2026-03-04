@@ -1,0 +1,2 @@
+echo "*.tar" >> .gitignore
+echo ".DS_Store" >> .gitignore
